@@ -235,6 +235,9 @@ const utility = {
                     return false;
                 }
                 return regexParser.test(value) && ( value > 0 ) && (value < 31);
+            case 'text:
+                value = value.toString();
+                return value.length;
         }
     }
 }
