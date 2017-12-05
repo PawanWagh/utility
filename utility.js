@@ -10,9 +10,10 @@ const utility = {
      * 
      */
     base64_decode(base64str, file){
-    	if(!file || !base64str){
-    		return;
-    	}
+        const fs = require('fs');
+        if(!file || !base64str){
+            return;
+        }
         // create buffer object from base64 encoded string, it is important to tell the constructor that the string is base64 encoded
         const bitmap = new Buffer(base64str, 'base64');
         // write buffer to image file
@@ -28,9 +29,10 @@ const utility = {
      * 
      */
     base64_encode(file) {
-    	if(!file){
-    		return;
-    	}
+        if(!file){
+            return;
+        }
+        const fs = require('fs');
         // read binary data
         const bitmap = fs.readFileSync(file);
         // convert binary data to base64 encoded string
@@ -45,6 +47,7 @@ const utility = {
      * 
      */
     readFile(fileName){
+        const fs = require('fs');
         //returns saved image from local directory
         return fs.readFileSync(fileName);
     },
@@ -57,6 +60,7 @@ const utility = {
      * 
      */
     removeFile(fileName){
+        const fs = require('fs');
         //removes stored image from local directory
         fs.unlinkSync(fileName);
     },
@@ -196,7 +200,7 @@ const utility = {
         return value.trim();
     },
     strip(value){
-        if(!this.isValid(value)){
+        if(this.isUnDefined(value)){
             throw new Error('Invalid Value provided');
         }
         return value.replace(/\s/g, "");
@@ -235,9 +239,6 @@ const utility = {
                     return false;
                 }
                 return regexParser.test(value) && ( value > 0 ) && (value < 31);
-            case 'text:
-                value = value.toString();
-                return value.length;
         }
     }
 }
